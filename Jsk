@@ -1,0 +1,37 @@
+import React, { useState } from "react";
+import QRCode from "qrcode.react";
+import { Button, Card, CardContent } from "@/components/ui/card";
+
+export default function DepositOption() {
+  const [showQR, setShowQR] = useState(false);
+
+  // ⚡ Replace with your UPI / Payment Link
+  const paymentLink = "upi://pay?pa=yourupiid@upi&pn=YourName&am=100&cu=INR";
+
+  return (
+    <div className="flex flex-col items-center p-6">
+      {!showQR ? (
+        <Button 
+          onClick={() => setShowQR(true)} 
+          className="px-6 py-3 text-lg font-bold shadow-md rounded-2xl"
+        >
+          Deposit
+        </Button>
+      ) : (
+        <Card className="p-6 shadow-xl rounded-2xl">
+          <CardContent className="flex flex-col items-center">
+            <h2 className="text-xl font-bold mb-3">Scan to Pay</h2>
+            <QRCode value={paymentLink} size={220} />
+            <p className="mt-3 text-gray-600">Use UPI app (Paytm / GPay / PhonePe)</p>
+            <Button 
+              onClick={() => setShowQR(false)} 
+              className="mt-4"
+            >
+              Close
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}
